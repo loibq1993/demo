@@ -12,7 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+
+], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::group(['prefix' => 'student'], function () {
+        Route::get('index', [\App\Http\Controllers\StudentController::class, 'index'])->name('student.index');
+//   Route::post('')
+    });
+    Route::group(['prefix' => 'teacher'], function () {
+//        Route::get('index', 'TeacherController@index')->name('teacher.index');
+//   Route::post('')
+    });
 });
