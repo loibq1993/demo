@@ -1,23 +1,20 @@
-<div class="form-control mb-4">
-    <div class="label-form mb-1">
-        <span>Question *</span>
-    </div>
-    <div class="content-input">
-        <textarea id="editor_1" name="question"></textarea>
-    </div>
+@section('style')
+    <style>
+        .replaced-input {
+            width: 50px!important;
+        }
+    </style>
+@endsection
+<div class="fill-the-blank">
+        {!! $question !!}
 </div>
-<div class="form-control">
-    <div class="label-form mb-1">
-        <span>Answer *</span>
-    </div>
-    <div class="content-input">
-        <textarea id="editor_2" name="answer[value][]"></textarea>
-        <input type="hidden" name="answer[correct_answer][]" value="1">
-    </div>
-    <div class="label-form mb-1 mt-3">
-        <span>Explanation for answer</span>
-    </div>
-    <div class="content-input">
-        <textarea name="answer[explanation][]" class="w-100"></textarea>
-    </div>
-</div>
+@section('scripts')
+    <script>
+        $( document ).ready(function () {
+            let someVar;
+            someVar = $('p').html();
+            someVar = someVar.replaceAll('___', '<input type="text" name="value[]" class="replaced-input" style="width: 50px"/>');
+            $('.fill-the-blank').html(someVar);
+        })
+    </script>
+@endsection
