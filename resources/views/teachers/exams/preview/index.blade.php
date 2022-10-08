@@ -15,22 +15,7 @@
                     @foreach($exam->questions as $key => $value)
                         <div class="title mt-5">{!! $value->title !!}</div>
                         @foreach($value->answers as $item)
-                            @switch($value->type)
-                                @case(0)
-                                    @include('teachers.exams.preview.components.multiple_choice', ['item' => $item, 'question' => $value->question])
-                                    @break
-                                @case(1)
-                                    @include('teachers.exams.preview.components.fill_the_blank',  ['item' => $item, 'question' => $value->question])
-                                    @break
-                                @case(2)
-                                    @include('teachers.exams.preview.components.one_choice',  ['item' => $item, 'question' => $value->question])
-                                    @break
-                                @case(3)
-                                    @include('teachers.exams.preview.components.true_false',  ['item' => $item, 'question' => $value->question])
-                                    @break
-                                @default
-                                    @break
-                            @endswitch
+                            @include('teachers.exams.preview.components.'.$value->question_type->blade_view, ['item' => $item, 'question' => $value->question])
                         @endforeach
                     @endforeach
                 </div>

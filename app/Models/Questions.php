@@ -24,4 +24,9 @@ class Questions extends Model
     {
         return $this->belongsTo(Exams::class, 'exam_id');
     }
+
+    public function question_type()
+    {
+        return $this->hasOne(QuestionType::class, 'id', 'type');
+    }
 }

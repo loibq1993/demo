@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Answers;
 use App\Models\Questions;
+use App\Models\QuestionType;
 use App\Rules\ValidateCorrectAnswer;
 use Exception;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class QuestionsController extends Controller
      */
     public function create($examId)
     {
-        $type = config('constants.type');
+        $type = QuestionType::all();
 
         return view('teachers.exams.questions.create', compact('type', 'examId'));
     }
