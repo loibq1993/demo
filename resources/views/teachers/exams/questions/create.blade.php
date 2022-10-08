@@ -24,7 +24,7 @@
                         <select class="form-control" style="background-color:#fff" name="type" id="type">
                             <option>Select an option</option>
                             @foreach($type as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
+                                <option value="{{$key}}">{{$value->name}}</option>
                             @endforeach
                         </select>
                     </div>

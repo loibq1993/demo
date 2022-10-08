@@ -23,7 +23,7 @@
                     @foreach($data->questions as $key => $question)
                         <tr>
                             <td>{{$key+1}}</td>
-                            <td>{{config('constants.type')[$question->type]}}</td>
+                            <td>{{$question->question_type->name}}</td>
                             <td>{{$question->title}}</td>
                             <td>{{\Carbon\Carbon::parse($question->date)->format('Y-m-d')}}</td>
                             <td>
