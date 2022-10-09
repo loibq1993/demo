@@ -84,7 +84,7 @@ class ExamService
             'answer_id' => null,
             'answer_by_text' => $userAnswer['answer'] ?? '',
             'order_answer' => $userAnswer['getKey'],
-            'is_true_answer' => strtolower($userAnswer['answer']) == strtolower((int)$this->checkMatchAnswer($userAnswer)->answer)
+            'is_true_answer' => strtolower($userAnswer['answer']) == strtolower($this->checkMatchAnswer($userAnswer)->answer)
         ];
     }
 
