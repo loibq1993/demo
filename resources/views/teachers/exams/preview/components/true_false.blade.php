@@ -3,6 +3,7 @@
 
     </style>
 @endsection
+@foreach($value->answers as $item)
 <div class="multiple-choice">
     <div class="form-answer">
         <div class="w-100">
@@ -15,3 +16,4 @@
         </div>
     </div>
 </div>
+@endforeach

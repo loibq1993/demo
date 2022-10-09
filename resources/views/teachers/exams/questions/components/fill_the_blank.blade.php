@@ -11,7 +11,7 @@
         <span>Answer *</span>
     </div>
     <div class="content-input">
-        <textarea id="editor_2" name="answer[value][]"></textarea>
+        <textarea id="editor_2" name="answer[value][]" class="w-100"></textarea>
         <input type="hidden" name="answer[correct_answer][]" value="1">
     </div>
     <div class="label-form mb-1 mt-3">

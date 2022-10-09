@@ -24,7 +24,7 @@
                         <select class="form-control" style="background-color:#fff" name="type" id="type">
                             <option>Select an option</option>
                             @foreach($type as $key => $value)
-                                <option value="{{$key}}">{{$value->name}}</option>
+                                <option value="{{$value->id}}">{{$value->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -64,12 +64,6 @@
                 content.append(view)
                 ClassicEditor
                     .create( document.querySelector( '#editor_1' ) )
-                    .then( editor => {
-                    } )
-                    .catch( error => {
-                    } );
-                ClassicEditor
-                    .create( document.querySelector( '#editor_2' ) )
                     .then( editor => {
                     } )
                     .catch( error => {
