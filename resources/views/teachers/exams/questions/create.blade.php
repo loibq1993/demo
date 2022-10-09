@@ -23,7 +23,7 @@
                     <div class="col-3">
                         <select class="form-control" style="background-color:#fff" name="type" id="type">
                             <option>Select an option</option>
-                            @foreach($type as $key => $value)
+                            @foreach($type as $value)
                                 <option value="{{$value->id}}">{{$value->name}}</option>
                             @endforeach
                         </select>
@@ -49,8 +49,9 @@
                 let content = $('.content-form-exam');
                 let view;
                 content.empty();
+                console.log(parseInt($(this).val()))
                 switch (parseInt($(this).val())) {
-                    case 0: view = `@include('teachers.exams.questions.components.multiple_choice')` ;
+                    case 0  : view = `@include('teachers.exams.questions.components.multiple_choice')` ;
                         break;
                     case 1: view=`@include('teachers.exams.questions.components.fill_the_blank')`;
                         break;

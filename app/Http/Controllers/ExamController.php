@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exams;
+use App\Models\Questions;
+use App\Models\ExamUserAnswers;
+use App\Models\UserExams;
 use App\Services\ExamService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use PHPUnit\Exception;
 
 class ExamController extends Controller
@@ -119,5 +126,42 @@ class ExamController extends Controller
             abort(404);
         }
         return view('teachers.exams.preview.index', compact('exam'));
+    }
+
+    public function getExam($id)
+    {
+        $exam = Exams::where('id', $id)->with(['questions'])->first();
+        $start_time = Carbon::now();
+
+        if (!$exam) {
+            abort(404);
+        }
+        return view('students.exams.index', compact('exam', 'start_time'));
+    }
+
+    public function postExam(Request $request, $id)
+    {
+        if (!Auth::user()) {
+            Validator::make($request->all(), [
+                'email' => 'required|email:rfc,dns',
+            ])->validate();
+        }
+        try {
+            DB::beginTransaction();
+            $userExam = $this->examsService->createUserExam($id, $request);
+            foreach ($request->all() as $question => $answer) {
+                if (str_contains($question, 'question')) {
+                    $findQuestion = Questions::find(trim($question, 'question_'));
+                    $this->examsService->createUserAnswers($findQuestion, $answer, $userExam);
+                }
+            }
+            $userExam->score = $this->examsService->calculateScore($userExam);
+            $userExam->save();
+            DB::commit();
+            return view('students.exams.success', compact('userExam'));
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error($exception);
+        }
     }
 }

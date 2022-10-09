@@ -28,6 +28,8 @@ Route::group([
 
     Route::group(['prefix' => 'student'], function () {
         Route::get('index', [\App\Http\Controllers\StudentController::class, 'index'])->name('student.index');
+        Route::get('/exams/{id}', [ExamController::class, 'getExam'])->name('student.exam.get');
+        Route::post('/exams/{id}/submit', [ExamController::class, 'postExam'])->name('student.exam.post');
     });
     Route::group(['prefix' => 'teacher'], function () {
         Route::group(['prefix' => 'exams'], function () {
