@@ -6,6 +6,8 @@ use App\Models\Answers;
 use App\Models\Questions;
 use App\Models\QuestionType;
 use App\Rules\ValidateCorrectAnswer;
+use App\Services\AnswerService;
+use App\Services\QuestionService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +15,15 @@ use Illuminate\Support\Facades\Log;
 
 class QuestionsController extends Controller
 {
+    protected AnswerService $answerService;
+    protected QuestionService $questionService;
+
+    public function __construct(AnswerService $answerService, QuestionService $questionService)
+    {
+        $this->questionService = $questionService;
+        $this->answerService = $answerService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +54,6 @@ class QuestionsController extends Controller
      */
     public function store(Request $request, $examId)
     {
-//        dd($request->all());
         DB::beginTransaction();
         try {
             $request->validate([
@@ -52,21 +62,9 @@ class QuestionsController extends Controller
                 'question' => 'required',
                 'answer.correct_answer' => new ValidateCorrectAnswer($request['type'])
             ]);
-            $question = Questions::create([
-                'title' => $request['title'] ?? 'Null',
-                'type' => $request['type'],
-                'description' => $request['description'],
-                'exam_id' => $examId,
-                'question' => $request['question']
-            ]);
-            foreach ($request['answer']['value'] as $key => $item) {
-                Answers::create([
-                    'question_id' => $question->id,
-                    'answer' => $item,
-                    'correct_answer' => (int)$request['answer']['correct_answer'][$key],
-                    'explanation' => $request['answer']['explanation'][$key]
-                ]);
-            }
+            $question = $this->questionService->handleSaveQuestion($request, $examId);
+            $this->answerService->handleSaveAnswer($request, $question);
+
             DB::commit();
             return redirect()->route('teacher.exams.show', $examId);
         } catch (Exception $exception) {

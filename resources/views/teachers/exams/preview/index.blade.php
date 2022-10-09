@@ -14,9 +14,7 @@
                 <div class="questions">
                     @foreach($exam->questions as $key => $value)
                         <div class="title mt-5">{!! $value->title !!}</div>
-                        @foreach($value->answers as $item)
-                            @include('teachers.exams.preview.components.'.$value->question_type->blade_view, ['item' => $item, 'question' => $value->question])
-                        @endforeach
+                        @include('teachers.exams.preview.components.'.$value->question_type->blade_view, ['value' => $value])
                     @endforeach
                 </div>
             </form>
