@@ -8,11 +8,13 @@ import CIcon from '@coreui/icons-vue'
 import { iconsSet as icons } from '@/assets/icons'
 import DocsCallout from '@/components/DocsCallout'
 import DocsExample from '@/components/DocsExample'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(CoreuiVue)
+app.use( CKEditor )
 app.provide('icons', icons)
 app.component('CIcon', CIcon)
 app.component('DocsCallout', DocsCallout)

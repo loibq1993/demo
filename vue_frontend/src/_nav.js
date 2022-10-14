@@ -11,6 +11,22 @@ export default [
   },
   {
     component: 'CNavTitle',
+    name: 'Questions',
+  },
+  {
+    component: 'CNavItem',
+    name: 'Questions',
+    to: '/questions',
+    icon: 'cil-notes',
+  },
+  {
+    component: 'CNavItem',
+    name: 'Create question',
+    to: '/questions/create',
+    icon: 'cil-pencil',
+  },
+  {
+    component: 'CNavTitle',
     name: 'Theme',
   },
   {
@@ -277,16 +293,7 @@ export default [
       },
     ],
   },
-  {
-    component: 'CNavTitle',
-    name: 'Questions',
-  },
-  {
-    component: 'CNavItem',
-    name: 'Create question',
-    to: '/questions/create',
-    icon: 'cir-comment-bubble-question',
-  },
+
   // {
   //   component: 'CNavItem',
   //   name: 'Download CoreUI',

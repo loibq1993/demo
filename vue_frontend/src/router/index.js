@@ -20,6 +20,21 @@ const routes = [
           import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
       },
       {
+        path: '/questions',
+        name: 'Questions',
+        redirect: '/questions',
+      },
+      {
+        path: '/questions',
+        name: 'Questions',
+        component: () => import('@/views/questions/List'),
+      },
+      {
+        path: '/questions/create',
+        name: 'Create question',
+        component: () => import('@/views/questions/Create'),
+      },
+      {
         path: '/theme',
         name: 'Theme',
         redirect: '/theme/typography',
