@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.2.1",
+    "@ckeditor/ckeditor5-ckfinder": "^35.2.1",
     "@ckeditor/ckeditor5-upload": "^35.2.1",
     "@ckeditor/ckeditor5-vue": "^4.0.1",
     "@coreui/chartjs": "^3.0.0",
@@ -36,6 +37,7 @@
     "bootstrap": "^5.2.2",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.19.0",
+    "moment": "^2.29.4",
     "v-switch-case": "^1.0.3",
     "vue": "^3.2.41",
     "vue-router": "^4.0.12",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@visao/ckeditor5-video": "^28.0.1",
     "@vue/cli-plugin-babel": "~5.0.0-rc.1",
     "@vue/cli-plugin-e2e-cypress": "~5.0.0-rc.1",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
