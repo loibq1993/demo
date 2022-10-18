@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([
+    'middleware' => ['cors']
+], function() {
+    Route::get('question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
+    Route::get('questions', [\App\Http\Controllers\Admin\QuestionsController::class, 'index']);
+    Route::post('question/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
+});
