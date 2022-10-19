@@ -11,10 +11,10 @@
             <thead class="thead">
             <tr>
               <th scope="col" style="width: 5%">#</th>
-              <th scope="col" style="width: 30%">Type</th>
+              <th scope="col" style="width: 25%">Type</th>
               <th scope="col" style="width: 40%">Title</th>
               <th scope="col" style="width: 15%">Created date</th>
-              <th scope="col" style="width: 10%">
+              <th scope="col" style="width: 15%">
                 <a v-bind:href="href.create" class="btn btn-primary">
                   <i class="fa fa-plus"></i>
                 </a>
@@ -31,8 +31,11 @@
                   <a v-bind:href="href.edit" class="btn btn-warning" style="margin-right: 5px;">
                     <i class="fa fa-pencil"></i>
                   </a>
-                  <a v-bind:href="href.delete" class="btn btn-danger">
+                  <a v-bind:href="href.delete" class="btn btn-danger" style="margin-right: 5px;">
                     <i class="fa fa-trash"></i>
+                  </a>
+                  <a v-bind:href="href.preview+'/'+question.id" class="btn btn-danger">
+                    <i class="fa fa-eye"></i>
                   </a>
                 </td>
               </tr>
@@ -57,7 +60,8 @@ export default {
       href: {
         create: '/#/questions/create',
         edit: '/#/questions/edit',
-        delete: '/#/questions/delete'
+        delete: '/#/questions/delete',
+        preview: '/#/question/preview'
       },
       questions: [],
       types: []

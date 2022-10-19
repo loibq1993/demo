@@ -1,7 +1,7 @@
 <template>
   <div id="fill_the_blank">
-    <div class="question mb-4" @keyup="getQuestion">
-      <ckeditor :editor="editor" :config="editorConfig"></ckeditor>
+    <div class="question mb-4">
+      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" v-bind:class="'bcd'"></ckeditor>
     </div>
     <div class="answers col-12">
       <div v-for="(answerEl, index) in answerEls" :key="index">
@@ -42,6 +42,7 @@ export default {
           }
         }
       },
+      editorData: '',
       title: 'answer[value]',
       explanation: 'answer[explanation]',
       selectField: 'answer[selectField]',
@@ -56,8 +57,10 @@ export default {
     addAnswer() {
       this.answerEls.push({count: this.answerEls.length})
     },
-    getQuestion(value) {
-      this.$emit('childToParent', value.originalTarget.innerHTML)
+  },
+  watch: {
+    editorData: function(val) {
+      this.$emit('childToParent', val);
     },
   },
 }

@@ -24,4 +24,5 @@ Route::group([
     Route::get('question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
     Route::get('questions', [\App\Http\Controllers\Admin\QuestionsController::class, 'index']);
     Route::post('question/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
+    Route::get('question/preview/{id}', [\App\Http\Controllers\Admin\QuestionsController::class, 'show']);
 });

@@ -35,6 +35,17 @@ const routes = [
         component: () => import('@/views/questions/Create'),
       },
       {
+        name: 'Question',
+        path: '/questions',
+        children: [
+          {
+            path: '/question/preview/:id',
+            name: 'Preview',
+            component: () => import('@/views/questions/Preview'),
+          }
+        ]
+      },
+      {
         path: '/theme',
         name: 'Theme',
         redirect: '/theme/typography',
@@ -311,7 +322,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.VUE_APP_BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
   scrollBehavior() {
     // always scroll to top
