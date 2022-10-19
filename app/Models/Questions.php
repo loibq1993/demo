@@ -18,8 +18,8 @@ class Questions extends Model
         'type'
     ];
 
-    public function answers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function fullAnswer(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CorrectAnswers::class,'question_id');
+        return $this->hasMany(FullAnswers::class,'question_id');
     }
 }

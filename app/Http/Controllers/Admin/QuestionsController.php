@@ -91,4 +91,14 @@ class QuestionsController extends Controller
             'type' => $type
         ], 200);
     }
+
+    public function show($id)
+    {
+        $question = $this->questionsService->getOne($id);
+
+        return response()->json([
+            'question' => $question->toArray(),
+            'answers' => $question->fullAnswer->toArray()
+        ],200);
+    }
 }

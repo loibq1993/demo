@@ -26,4 +26,9 @@ class QuestionsService
             'question' => $data['question']
         ]);
     }
+
+    public function getOne($id)
+    {
+        return Questions::find($id);
+    }
 }
