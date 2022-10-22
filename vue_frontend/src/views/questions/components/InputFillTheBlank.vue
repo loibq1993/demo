@@ -9,8 +9,10 @@
           <div class="col-3">
             <Select :title="selectField" :options="options"></Select>
           </div>
-          <Input class="col-7" :title="title" :placeholder="placeholder.answer" :type="'text'"></Input>
-          <Input class="col-2" :placeholder="placeholder.limit" :type="'number'" :title="limitText"></Input>
+          <Input class="col-7" :title="title" :placeholder="placeholder.answer" :type="'text'" @keyup="countWord"></Input>
+          <div class="input-limit col-2">
+            <Input :placeholder="placeholder.limit" :type="'number'" :title="limitText"></Input>
+          </div>
         </div>
       </div>
     </div>
@@ -53,6 +55,14 @@ export default {
   methods: {
     addAlterAnswers() {
       this.answerAlterEls.push(0)
+    },
+    countWord(event){
+      let count = 0;
+      event.target.value.split(" ").map(function (text) {
+        if (text.trim().length > 0) ++count
+      })
+      let limitInput = event.target.closest('.content-input').getElementsByClassName('input-limit')[0].getElementsByTagName('input')[0]
+      limitInput.value = count
     }
   }
 }
