@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuestionRequest;
 use App\Services\QuestionsService;
 use Illuminate\Http\Request;
 use App\Services\FullAnswerService;
 use App\Services\QuestionTypesService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Termwind\Question;
 
 class QuestionsController extends Controller
@@ -17,10 +19,11 @@ class QuestionsController extends Controller
     protected FullAnswerService $fullAnswerService;
 
     public function __construct(
-        QuestionsService $questionsService,
+        QuestionsService     $questionsService,
         QuestionTypesService $questionsTypesService,
-        FullAnswerService $fullAnswerService
-    ) {
+        FullAnswerService    $fullAnswerService
+    )
+    {
         $this->questionsService = $questionsService;
         $this->questionsTypesService = $questionsTypesService;
         $this->fullAnswerService = $fullAnswerService;
@@ -49,27 +52,51 @@ class QuestionsController extends Controller
         return $this->$function($request);
     }
 
-    public function storeFillTheBlank($request): \Illuminate\Http\JsonResponse
+    public function storeFillTheBlank(Request $request): \Illuminate\Http\JsonResponse
     {
         DB::beginTransaction();
 
         try {
             $count = 0;
             $answerData = [];
-            while(!is_null($request['answer[selectField]['.$count.']'])) {
-                $answerData[$count]['answer_type'] = $request['answer[selectField]['.$count.']'];
-                $answerData[$count]['full_text_answer'] = $request['answer[value]['.$count.']'];
-                $answerData[$count]['limit_text'] = $request['answer[limitText]['.$count.']'];
-                $answerData[$count]['explanation'] = $request['answer[explanation]['.$count.']'];
+            while (!is_null($request['answer[selectField][' . $count . ']'])) {
+                $answerData[$count]['answer_type'] = $request['answer[selectField][' . $count . ']'];
+                $answerData[$count]['full_text_answer'] = $request['answer[value][' . $count . ']'];
+                $answerData[$count]['limit_text'] = $request['answer[limitText][' . $count . ']'];
+                $answerData[$count]['explanation'] = $request['answer[explanation][' . $count . ']'];
                 ++$count;
             }
-
             $questionData = [
-                'title' => $request['title'][0],
+                'title' => '1',
                 'type' => $request['questionType'][0],
-                'question' => $request['question'],
+                'question' => '1',
                 'required' => $request['required']
             ];
+
+            $validatorQuestion = Validator::make($questionData, [
+                "question" => "required|string",
+                "type" => "required",
+            ]);
+            $validatorAnswer = Validator::make($answerData, [
+                "*.answer_type.*" => "required",
+                "*.full_text_answer.*" => "required",
+                "*.limit_text.*" => "integer|nullable",
+            ]);
+
+            if ($validatorQuestion->fails()) {
+                return response()->json([
+                    'message' => 'Bad request',
+                    'errors' => $validatorQuestion->errors()->toArray()
+                ], 400);
+            }
+            if ($validatorAnswer->fails()) {
+                return response()->json([
+                    'message' => 'Bad request',
+                    'errors' => $validatorAnswer->errors()->toArray()
+                ], 400);
+            }
+
+
             $question = $this->questionsService->store($questionData);
 
             foreach ($answerData as $data) {
@@ -100,6 +127,6 @@ class QuestionsController extends Controller
         return response()->json([
             'question' => $question->toArray(),
             'answers' => $question->fullAnswer->toArray()
-        ],200);
+        ], 200);
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('title')->nullable();
             $table->text('descriptions')->nullable();
             $table->text('question');
+            $table->boolean('required')->default(0);
             $table->integer('type');
             $table->timestamps();
         });
