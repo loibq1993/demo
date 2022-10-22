@@ -17,6 +17,17 @@
                 <div class="col-4 mb-3">
                   <Select :title="select" :options="options" @select-changed="changeSelect"></Select>
                 </div>
+                <div class="require-input mb-3">
+                  <div class="row">
+                    <div class="label col-1 offset-10">Required ?</div>
+                    <div class="col-1 text-end">
+                      <label class="switch">
+                        <input type="checkbox" v-model="required">
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="row content">
                 <div class="col-12">
@@ -27,8 +38,8 @@
                 </div>
               </div>
               <div class="submit">
-                <button type="submit" class="btn btn-success text-white float-end" v-if="!isNaN(view)" @click="save">Save</button>
-              </div>
+                  <button type="submit" class="btn btn-success text-white float-end" v-if="!isNaN(view)" @click="save">Save</button>
+                </div>
             </CForm>
           </CRow>
         </CCardBody>
@@ -60,6 +71,7 @@ export default {
       placeholderTitle: 'title',
       options: [],
       view: NaN,
+      required: false,
       errors: [],
     }
   },
@@ -88,6 +100,7 @@ export default {
         }
       }
       data.question = this.question;
+      data.required = this.required;
 
       fetch('http://localhost/api' + '/question/store', {
         method: 'POST',
@@ -100,9 +113,6 @@ export default {
           } else {
             router.push({name: 'Questions'}).catch(err => { console.log(err) });
           }
-        })
-        .then(function () {
-          // this.$router.push('/questions')
         })
         .catch(console.error)
     },

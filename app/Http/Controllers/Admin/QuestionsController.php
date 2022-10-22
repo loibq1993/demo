@@ -67,7 +67,8 @@ class QuestionsController extends Controller
             $questionData = [
                 'title' => $request['title'][0],
                 'type' => $request['questionType'][0],
-                'question' => $request['question']
+                'question' => $request['question'],
+                'required' => $request['required']
             ];
             $question = $this->questionsService->store($questionData);
 

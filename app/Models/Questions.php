@@ -15,7 +15,8 @@ class Questions extends Model
         'title',
         'descriptions',
         'question',
-        'type'
+        'type',
+        'required'
     ];
 
     public function fullAnswer(): \Illuminate\Database\Eloquent\Relations\HasMany

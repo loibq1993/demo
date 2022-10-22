@@ -20,11 +20,7 @@ class QuestionsService
 
     public function store($data)
     {
-        return Questions::create([
-            'title'=> $data['title'],
-            'type' => $data['type'],
-            'question' => $data['question']
-        ]);
+        return Questions::create($data);
     }
 
     public function getOne($id)
