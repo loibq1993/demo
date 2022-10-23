@@ -19,7 +19,7 @@ class Questions extends Model
         'required'
     ];
 
-    public function fullAnswer(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function fullAnswers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FullAnswers::class,'question_id');
     }

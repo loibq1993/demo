@@ -123,10 +123,9 @@ class QuestionsController extends Controller
     public function show($id)
     {
         $question = $this->questionsService->getOne($id);
-
+;
         return response()->json([
-            'question' => $question->toArray(),
-            'answers' => $question->fullAnswer->toArray()
+            'question' => $question
         ], 200);
     }
 }

@@ -20,6 +20,6 @@ class CorrectAnswerDetail extends Model
 
     public function correctAnswer()
     {
-        return $this->belongsTo(CorrectAnswers::class);
+        return $this->belongsTo(CorrectAnswers::class, 'id', 'correct_answer_id');
     }
 }

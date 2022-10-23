@@ -23,6 +23,6 @@ class CorrectAnswers extends Model
 
     public function correctAnswerDetail()
     {
-        return $this->hasMany(CorrectAnswerDetail::class);
+        return $this->hasOne(CorrectAnswerDetail::class,'correct_answer_id', 'id');
     }
 }

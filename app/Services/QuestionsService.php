@@ -25,6 +25,9 @@ class QuestionsService
 
     public function getOne($id)
     {
-        return Questions::find($id);
+        return Questions::with(['fullAnswers' => [
+            'detailFullAnswers',
+            'correctAnswers' => ['correctAnswerDetail']
+        ]])->where('id', $id)->first();
     }
 }

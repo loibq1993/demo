@@ -19,16 +19,16 @@ class FullAnswers extends Model
 
     public function questions(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Questions::class);
+        return $this->belongsTo(Questions::class,'id', 'question_id');
     }
 
     public function correctAnswers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(CorrectAnswers::class);
+        return $this->hasMany(CorrectAnswers::class, 'full_answer_id', 'id');
     }
 
     public function detailFullAnswers()
     {
-        return $this->hasMany(DetailFullAnswers::class);
+        return $this->hasOne(DetailFullAnswers::class, 'full_answer_id', 'id');
     }
 }
