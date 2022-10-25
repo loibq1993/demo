@@ -17,10 +17,9 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('description')->nullable();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->time('count_down');
             $table->float('minimum_score');
             $table->timestamps();
         });

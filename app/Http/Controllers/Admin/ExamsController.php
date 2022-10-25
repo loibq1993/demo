@@ -63,7 +63,7 @@ class ExamsController extends Controller
     {
         $exam = $this->examsService->getOne($id);
         if (is_null($exam)){
-            return response()->json([], 400);
+            return response()->json([], 404);
         }
         return response()->json([
             'title' => $exam->title,
@@ -88,7 +88,7 @@ class ExamsController extends Controller
     {
         $exam = $this->examsService->getOne($id);
         if (is_null($exam)){
-            return response()->json([], 400);
+            return response()->json([], 404);
         }
         try {
             $examData = [
@@ -117,7 +117,7 @@ class ExamsController extends Controller
     {
         $exam = $this->examsService->getOne($id);
         if (is_null($exam)){
-            return response()->json([], 400);
+            return response()->json([], 404);
         }
         try {
             $this->examsService->destroy($exam);
