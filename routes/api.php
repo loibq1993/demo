@@ -26,3 +26,8 @@ Route::group([
     Route::post('question/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
     Route::get('question/preview/{id}', [\App\Http\Controllers\Admin\QuestionsController::class, 'show']);
 });
+Route::get('exams', [\App\Http\Controllers\Admin\ExamsController::class, 'index']);
+Route::post('exam/store', [\App\Http\Controllers\Admin\ExamsController::class, 'store']);
+Route::post('exam/update/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'update']);
+Route::delete('exam/delete/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'destroy']);
+Route::get('exam/preview/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'show']);
