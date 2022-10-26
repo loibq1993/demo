@@ -20,15 +20,14 @@ class QuestionsService
 
     public function store($data)
     {
-        return Questions::create([
-            'title'=> $data['title'],
-            'type' => $data['type'],
-            'question' => $data['question']
-        ]);
+        return Questions::create($data);
     }
 
     public function getOne($id)
     {
-        return Questions::find($id);
+        return Questions::with(['fullAnswers' => [
+            'detailFullAnswers',
+            'correctAnswers' => ['correctAnswerDetail']
+        ]])->where('id', $id)->first();
     }
 }

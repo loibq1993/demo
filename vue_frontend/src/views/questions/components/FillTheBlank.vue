@@ -3,13 +3,18 @@
     <div class="question mb-4">
       <ckeditor :editor="editor" v-model="editorData" :config="editorConfig" v-bind:class="'bcd'"></ckeditor>
     </div>
-    <div class="answers col-12">
-      <div v-for="(answerEl, index) in answerEls" :key="index">
-        <InputFillTheBlank v-model="answerEls[index]" :title="title+'['+answerEl.count+']'"
-                           :explanation="explanation+'['+answerEl.count+']'"
-                           :select-field="selectField+'['+answerEl.count+']'"
-                           :limit-text="limitText+'['+answerEl.count+']'"
-        ></InputFillTheBlank>
+    <div class="answers">
+      <div v-for="(answerEl, index) in answerEls" :key="index" class="row">
+        <div class="display-number-answer col-1">
+          <div class="numberCircle">{{index+1}}</div>
+        </div>
+        <div class="col-11">
+          <InputFillTheBlank v-model="answerEls[index]" :title="title+'['+answerEl.count+']'"
+                              :explanation="explanation+'['+answerEl.count+']'"
+                              :select-field="selectField+'['+answerEl.count+']'"
+                              :limit-text="limitText+'['+answerEl.count+']'"
+          ></InputFillTheBlank>
+        </div>
       </div>
     </div>
     <div class="button-add-answer offset-6">
@@ -65,3 +70,16 @@ export default {
   },
 }
 </script>
+<style scoped>
+.numberCircle {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border: 2px solid #666;
+  color: #666;
+  text-align: center;
+  font-size: 20px;
+  margin: 0 auto
+}
+</style>

@@ -55,7 +55,7 @@ export default {
       fetchData.then(data => {
         this.view = data.question.type
         this.question = data.question
-        this.answesr = data.answers
+        this.answers = data.question.full_answers
       })
     }
   },

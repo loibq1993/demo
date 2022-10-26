@@ -15,10 +15,11 @@ class Questions extends Model
         'title',
         'descriptions',
         'question',
-        'type'
+        'type',
+        'required'
     ];
 
-    public function fullAnswer(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function fullAnswers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FullAnswers::class,'question_id');
     }
