@@ -2,7 +2,7 @@
   <CRow>
     <CCol>
       <CCard>
-        <CCardHeader >
+        <CCardHeader>
           <div class="row">
             <span class="col-4"> <CIcon icon="cil-drop"/> Create question</span>
             <div class="col-4 offset-4 require-input">
@@ -49,6 +49,19 @@
       </CCard>
     </CCol>
   </CRow>
+  <Teleport to="body">
+    <div v-if="isOpen" class="modal">
+      <div class="button-close col-12">
+        <button @click="isOpen = false" class="float-end btn-close"></button>
+      </div>
+     <div class="model-content">
+       <b>Please correct the following error(s):</b>
+       <ul>
+         <li v-for="[error, index] in errors" :key="index" class="text-red">{{ error }}</li>
+       </ul>
+     </div>
+    </div>
+  </Teleport>
 </template>
 <script>
 import Select from '../components/Select'
@@ -76,6 +89,7 @@ export default {
       view: NaN,
       required: false,
       errors: [],
+      isOpen: false
     }
   },
   methods: {
@@ -111,15 +125,22 @@ export default {
         body: JSON.stringify(data)
       })
         .then(function (response) {
-          if (response.status !== 200) {
-            throw response.status;
+          return response.json()
+        })
+        .then((data) => {
+          this.errors = []
+          if (data.status !== 200) {
+            this.errors = Object.keys(data.errors).map((key) => data.errors[key]);
+            this.isOpen = true;
           } else {
             router.push({name: 'Questions'}).catch(err => {
               console.log(err)
             });
           }
         })
-        .catch(console.error)
+        .catch(e => {
+          console.log(e)
+        })
     },
     fetchData() {
       let fetchData = fetch('http://localhost/api' + '/question/types', {
@@ -144,3 +165,29 @@ export default {
   },
 }
 </script>
+<style scoped>
+.text-red {
+  color: red;
+}
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 999;
+  top: 30%;
+  left: 50% !important;
+  width: 500px;
+  margin-left: -150px;
+  background-color: white;
+  border-radius: 8px;
+  padding:15px;
+  box-shadow: 0 4px 16px #00000026;
+  height:auto;
+}
+.button-close {
+  height:30px;
+  border-bottom: 1px solid #00000026;
+}
+.model-content {
+  padding:10px;
+}
+</style>

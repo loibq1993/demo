@@ -11,7 +11,7 @@
           </div>
           <Input class="col-7" :title="title" :placeholder="placeholder.answer" :type="'text'" @keyup="countWord"></Input>
           <div class="input-limit col-2">
-            <Input :placeholder="placeholder.limit" :type="'number'" :title="limitText"></Input>
+            <Input :placeholder="placeholder.limit" :type="'number'" :title="limitText" @keypress="isNumber($event)"></Input>
           </div>
         </div>
       </div>
@@ -63,6 +63,14 @@ export default {
       })
       let limitInput = event.target.closest('.content-input').getElementsByClassName('input-limit')[0].getElementsByTagName('input')[0]
       limitInput.value = count
+    },
+    isNumber (evt) {
+      const keysAllowed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const keyPressed = evt.key;
+
+      if (!keysAllowed.includes(keyPressed)) {
+        evt.preventDefault()
+      }
     }
   }
 }

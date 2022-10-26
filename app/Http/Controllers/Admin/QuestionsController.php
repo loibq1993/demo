@@ -67,35 +67,33 @@ class QuestionsController extends Controller
                 ++$count;
             }
             $questionData = [
-                'title' => '1',
+                'title' => $request['title'][0],
                 'type' => $request['questionType'][0],
-                'question' => '1',
+                'question' => $request['question'],
                 'required' => $request['required']
             ];
 
-            $validatorQuestion = Validator::make($questionData, [
+            $validate = array_merge($questionData, $answerData);
+            $messages = [
+                '*.answer_type.*.required' => 'Answer type is required',
+                "*.full_text_answer.*.required" => "Answer is required",
+                "*.limit_text.*.integer" => "Limit number text must be integer",
+            ];
+            $validator = Validator::make($validate, [
+                "title" => "required|string",
                 "question" => "required|string",
                 "type" => "required",
-            ]);
-            $validatorAnswer = Validator::make($answerData, [
                 "*.answer_type.*" => "required",
                 "*.full_text_answer.*" => "required",
                 "*.limit_text.*" => "integer|nullable",
-            ]);
+            ], $messages);
 
-            if ($validatorQuestion->fails()) {
+            if ($validator->fails()) {
                 return response()->json([
                     'message' => 'Bad request',
-                    'errors' => $validatorQuestion->errors()->toArray()
+                    'errors' => $validator->errors()->toArray()
                 ], 400);
             }
-            if ($validatorAnswer->fails()) {
-                return response()->json([
-                    'message' => 'Bad request',
-                    'errors' => $validatorAnswer->errors()->toArray()
-                ], 400);
-            }
-
 
             $question = $this->questionsService->store($questionData);
 
