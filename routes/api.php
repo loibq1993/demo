@@ -22,7 +22,15 @@ Route::group([
     'middleware' => ['cors']
 ], function() {
     Route::get('/question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
+    //api for client without login
+    Route::group([
+        'prefix' => 'test'
+    ], function (){
+        Route::get('/exams', [\App\Http\Controllers\Client\ExamController::class, 'getListExams']);
+        Route::get('/exams/{id}', [\App\Http\Controllers\Client\ExamController::class, 'getExam']);
+    });
 
+    //should change to admin here
     Route::group([
         'prefix' =>'exams'
     ],function (){

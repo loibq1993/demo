@@ -18,4 +18,9 @@ class Exams extends Model
         'count_down',
         'minimum_score'
     ];
+
+    public function examQuestions()
+    {
+        return $this->hasMany(ExamQuestions::class, 'exam_id');
+    }
 }
