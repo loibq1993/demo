@@ -70,7 +70,8 @@ class QuestionsController extends Controller
                 'title' => $request['title'][0],
                 'type' => $request['questionType'][0],
                 'question' => $request['question'],
-                'required' => $request['required']
+                'required' => $request['required'],
+                'exam_id' => $request['exam_id']
             ];
 
             $validate = array_merge($questionData, $answerData);
@@ -86,6 +87,7 @@ class QuestionsController extends Controller
                 "*.answer_type.*" => "required",
                 "*.full_text_answer.*" => "required",
                 "*.limit_text.*" => "integer|nullable",
+                "exam_id" => "required|integer"
             ], $messages);
 
             if ($validator->fails()) {
@@ -96,6 +98,12 @@ class QuestionsController extends Controller
             }
 
             $question = $this->questionsService->store($questionData);
+
+            //create exam_question record
+            $this->questionsService->createExamQuestion([
+                'exam_id' => $request['exam_id'],
+                'question_id' => $question->id
+            ]);
 
             foreach ($answerData as $data) {
                 $this->fullAnswerService->storeFillTheBlank($question->id, $data);
