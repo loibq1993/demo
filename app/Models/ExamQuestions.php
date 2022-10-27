@@ -20,6 +20,6 @@ class ExamQuestions extends Model
 
     public function questions()
     {
-        return $this->belongsTo(Questions::class);
+        return $this->hasMany(Questions::class, 'id', 'question_id');
     }
 }

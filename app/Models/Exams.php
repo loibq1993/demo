@@ -19,4 +19,9 @@ class Exams extends Model
         'end_time',
         'minimum_score'
     ];
+
+    public function examQuestions()
+    {
+        return $this->hasMany(ExamQuestions::class, 'exam_id');
+    }
 }
