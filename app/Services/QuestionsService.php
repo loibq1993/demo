@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ExamQuestions;
 use App\Models\Questions;
 
 class QuestionsService
@@ -29,5 +30,10 @@ class QuestionsService
             'detailFullAnswers',
             'correctAnswers' => ['correctAnswerDetail']
         ]])->where('id', $id)->first();
+    }
+
+    public function createExamQuestion($data)
+    {
+        return ExamQuestions::create($data);
     }
 }
