@@ -2,6 +2,7 @@ import { h, resolveComponent } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import AdminLayout from '@/layouts/AdminLayout'
+import ClientLayout from "@/layouts/ClientLayout";
 
 const routes = [
   {
@@ -32,12 +33,12 @@ const routes = [
       {
         path: '/admin/questions',
         name: 'Questions',
-        component: () => import('@/views/questions/List'),
+        component: () => import('@/views/admin/questions/List'),
       },
       {
         path: '/exams/:id/questions/create',
         name: 'Create question',
-        component: () => import('@/views/questions/Create'),
+        component: () => import('@/views/admin/questions/Create'),
       },
       {
         name: 'Question',
@@ -46,7 +47,7 @@ const routes = [
           {
             path: '/admin/question/preview/:id',
             name: 'Preview',
-            component: () => import('@/views/questions/Preview'),
+            component: () => import('@/views/admin/questions/Preview'),
           }
         ]
       },
@@ -340,14 +341,22 @@ const routes = [
     ],
   },
   {
-    path: '/pages',
+    path: '/',
     redirect: '/pages/404',
-    name: 'Pages',
-    component: {
-      render() {
-        return h(resolveComponent('router-view'))
+    name: 'Homepage',
+    component: ClientLayout,
+    children: [
+      {
+        path: 'Homepage',
+        name: 'Homepage',
+        component: () => import('@/views/pages/Login'),
       },
-    },
+      {
+        path: '/test',
+        name: 'Test',
+        component: () => import('@/views/client/Test'),
+      },
+    ]
   }
 ]
 
