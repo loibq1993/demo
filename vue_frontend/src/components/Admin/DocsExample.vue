@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import pkg from '../../package.json'
+import pkg from '../../../package.json'
 export default {
   name: 'DocsExample',
   props: {

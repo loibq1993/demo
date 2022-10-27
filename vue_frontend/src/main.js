@@ -6,8 +6,8 @@ import store from './store'
 import CoreuiVue from '@coreui/vue'
 import CIcon from '@coreui/icons-vue'
 import { iconsSet as icons } from '@/assets/icons'
-import DocsCallout from '@/components/DocsCallout'
-import DocsExample from '@/components/DocsExample'
+import DocsCallout from '@/components/Admin/DocsCallout'
+import DocsExample from '@/components/Admin/DocsExample'
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'

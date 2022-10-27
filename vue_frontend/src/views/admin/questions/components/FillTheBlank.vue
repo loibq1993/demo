@@ -27,8 +27,8 @@
 </template>
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import UploadAdapter from '../../../assets/upload';
-import InputFillTheBlank from "@/views/questions/components/InputFillTheBlank";
+import UploadAdapter from '../../../../assets/upload';
+import InputFillTheBlank from "@/views/admin/questions/components/InputFillTheBlank";
 
 export default {
   name: 'FillTheBlank',

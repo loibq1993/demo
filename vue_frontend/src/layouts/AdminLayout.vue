@@ -14,12 +14,12 @@
 </template>
 <script>
 import { CContainer } from '@coreui/vue'
-import AppFooter from '@/components/AppFooter.vue'
-import AppHeader from '@/components/AppHeader.vue'
-import AppSidebar from '@/components/AppSidebar.vue'
+import AppFooter from '@/components/Admin/AppFooter.vue'
+import AppHeader from '@/components/Admin/AppHeader.vue'
+import AppSidebar from '@/components/Admin/AppSidebar.vue'
 
 export default {
-  name: 'DefaultLayout',
+  name: 'AdminLayout',
   components: {
     AppFooter,
     AppHeader,
