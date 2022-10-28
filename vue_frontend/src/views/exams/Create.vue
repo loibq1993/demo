@@ -107,18 +107,18 @@ export default {
         body: JSON.stringify(data)
       })
         .then(function (response) {
-          return response.json()
-        })
-        .then((data) => {
-          this.errors = [];
-          if (data.status !== 200) {
-            this.errors = Object.keys(data.errors).map((key) => data.errors[key]);
-            this.isOpen = true;
-          }else {
+          if (response.status !== 200) {
+            return response.json();
+          } else {
             router.push({name: 'Exams'}).catch(err => {
               console.log(err)
             });
           }
+        })
+        .then((data) => {
+          this.errors = [];
+          this.errors = Object.keys(data.errors).map((key) => data.errors[key]);
+          this.isOpen = true;
         })
         .catch(e => {
           console.log(e)

@@ -56,14 +56,11 @@ class ExamsController extends Controller
             $validator = Validator::make($examData,$ruler);
             if ($validator->fails()){
                 return response()->json([
-                    'status' => 422,
                     'errors' => $validator->errors()->toArray(),
                 ],422);
             }
             $this->examsService->store($examData);
-            return response()->json([
-                'status' => 200
-            ], 200);
+            return response()->json([], 200);
         }catch (\Exception $exception){
             throw $exception;
         }
@@ -124,14 +121,11 @@ class ExamsController extends Controller
             $validator = Validator::make($examData,$ruler);
             if ($validator->fails()){
                 return response()->json([
-                    'status' => 422,
                     'errors' => $validator->errors()->toArray(),
                 ],422);
             }
             $this->examsService->update($examData,$exam);
-            return response()->json([
-                'status' => 200
-            ], 200);
+            return response()->json([], 200);
         }catch (\Exception $exception){
             throw $exception;
         }
