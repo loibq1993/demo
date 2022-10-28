@@ -15,8 +15,7 @@ class Exams extends Model
         'description',
         'start_date',
         'end_date',
-        'start_time',
-        'end_time',
+        'count_down',
         'minimum_score'
     ];
 }

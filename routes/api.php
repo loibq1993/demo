@@ -36,4 +36,3 @@ Route::group([
         Route::get('/preview/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'show']);
     });
 });
-

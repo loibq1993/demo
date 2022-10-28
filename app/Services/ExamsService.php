@@ -14,8 +14,7 @@ class ExamsService
             'description' => $data['description'],
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
-            'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'],
+            'count_down' => $data['count_down'],
             'minimum_score' => $data['minimum_score']
         ]);
     }
@@ -25,8 +24,7 @@ class ExamsService
             'description' => $data['description'],
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
-            'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'],
+            'count_down' => $data['count_down'],
             'minimum_score' => $data['minimum_score']
         ]);
     }

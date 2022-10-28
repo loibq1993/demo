@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ExamsService;
+use Illuminate\Support\Facades\Validator;
 
 class ExamsController extends Controller
 {
@@ -40,12 +41,24 @@ class ExamsController extends Controller
             $examData = [
                 'title' => $request['title'],
                 'description' => $request['description'],
-                'start_date' => $request['start_date'],
-                'end_date' => $request['end_date'],
-                'start_time' => $request['start_time'],
-                'end_time' => $request['end_time'],
+                'start_date' => date("Y-m-d H:i:s", strtotime($request['start_date'])),
+                'end_date' => date("Y-m-d H:i:s", strtotime($request['end_date'])),
+                'count_down' => date("H:i:s",strtotime($request['count_down'])),
                 'minimum_score' => $request['minimum_score']
             ];
+            $ruler = [
+                'title' => 'required|string',
+                'start_date' => 'required|date_format:Y-m-d H:i:s',
+                'end_date' => 'required|date_format:Y-m-d H:i:s|after:start_date',
+                'count_down' => 'required|date_format:H:i:s',
+                'minimum_score' => 'required|numeric',
+            ];
+            $validator = Validator::make($examData,$ruler);
+            if ($validator->fails()){
+                return response()->json([
+                    'errors' => $validator->errors()->toArray(),
+                ],422);
+            }
             $this->examsService->store($examData);
             return response()->json([], 200);
         }catch (\Exception $exception){
@@ -70,8 +83,7 @@ class ExamsController extends Controller
             'description' => $exam->description,
             'start_date' => $exam->start_date,
             'end_date' => $exam->end_date,
-            'start_time' => $exam->start_time,
-            'end_time' => $exam->end_time,
+            'count_down' => $exam->count_down,
             'minimum_score' => $exam->minimum_score
         ],200);
     }
@@ -94,12 +106,24 @@ class ExamsController extends Controller
             $examData = [
                 'title' => $request['title'],
                 'description' => $request['description'],
-                'start_date' => $request['start_date'],
-                'end_date' => $request['end_date'],
-                'start_time' => $request['start_time'],
-                'end_time' => $request['end_time'],
+                'start_date' => date("Y-m-d H:i:s", strtotime($request['start_date'])),
+                'end_date' => date("Y-m-d H:i:s", strtotime($request['end_date'])),
+                'count_down' => date("H:i:s",strtotime($request['count_down'])),
                 'minimum_score' => $request['minimum_score']
             ];
+            $ruler = [
+                'title' => 'required|string',
+                'start_date' => 'required|date_format:Y-m-d H:i:s',
+                'end_date' => 'required|date_format:Y-m-d H:i:s|after:start_date',
+                'count_down' => 'required|date_format:H:i:s',
+                'minimum_score' => 'required|numeric',
+            ];
+            $validator = Validator::make($examData,$ruler);
+            if ($validator->fails()){
+                return response()->json([
+                    'errors' => $validator->errors()->toArray(),
+                ],422);
+            }
             $this->examsService->update($examData,$exam);
             return response()->json([], 200);
         }catch (\Exception $exception){

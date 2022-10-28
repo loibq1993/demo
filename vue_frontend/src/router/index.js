@@ -46,6 +46,21 @@ const routes = [
         ]
       },
       {
+        path: '/exams',
+        name: 'Exams',
+        redirect: '/exams',
+      },
+      {
+        path: '/exams',
+        name: 'Exams',
+        component: () => import('@/views/exams/List'),
+      },
+      {
+        path: '/exams/create',
+        name: 'Create exam',
+        component: () => import('@/views/exams/Create'),
+      },
+      {
         path: '/theme',
         name: 'Theme',
         redirect: '/theme/typography',
