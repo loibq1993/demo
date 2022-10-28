@@ -41,9 +41,9 @@ class ExamsController extends Controller
             $examData = [
                 'title' => $request['title'],
                 'description' => $request['description'],
-                'start_date' => date("Y-m-d H:i:s", strtotime($request['start_date'])),
-                'end_date' => date("Y-m-d H:i:s", strtotime($request['end_date'])),
-                'count_down' => date("H:i:s",strtotime($request['count_down'])),
+                'start_date' => is_null($request['start_date']) ? null : date("Y-m-d H:i:s", strtotime($request['start_date'])),
+                'end_date' => is_null($request['end_date']) ? null : date("Y-m-d H:i:s", strtotime($request['end_date'])),
+                'count_down' => is_null($request['count_down']) ? null : date("H:i:s", strtotime($request['count_down'])),
                 'minimum_score' => $request['minimum_score']
             ];
             $ruler = [
@@ -56,11 +56,14 @@ class ExamsController extends Controller
             $validator = Validator::make($examData,$ruler);
             if ($validator->fails()){
                 return response()->json([
+                    'status' => 422,
                     'errors' => $validator->errors()->toArray(),
                 ],422);
             }
             $this->examsService->store($examData);
-            return response()->json([], 200);
+            return response()->json([
+                'status' => 200
+            ], 200);
         }catch (\Exception $exception){
             throw $exception;
         }
@@ -121,11 +124,14 @@ class ExamsController extends Controller
             $validator = Validator::make($examData,$ruler);
             if ($validator->fails()){
                 return response()->json([
+                    'status' => 422,
                     'errors' => $validator->errors()->toArray(),
                 ],422);
             }
             $this->examsService->update($examData,$exam);
-            return response()->json([], 200);
+            return response()->json([
+                'status' => 200
+            ], 200);
         }catch (\Exception $exception){
             throw $exception;
         }

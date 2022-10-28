@@ -48,6 +48,19 @@
       </CCard>
     </CCol>
   </CRow>
+  <Teleport to="body">
+    <div v-if="isOpen" class="modal">
+      <div class="button-close col-12">
+        <button @click="isOpen = false" class="float-end btn-close"></button>
+      </div>
+      <div class="model-content">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="[error, index] in errors" :key="index" class="text-red">{{ error }}</li>
+        </ul>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <script>
@@ -59,9 +72,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 export default {
   name: 'Create',
   components: {Datepicker},
-  created() {
-    // this.fetchData();
-  },
+  created() {},
   data() {
     return {
       title: null,
@@ -71,6 +82,7 @@ export default {
       count_down: null,
       description: null,
       errors: [],
+      isOpen: false,
     }
   },
   methods: {
@@ -82,7 +94,10 @@ export default {
       data.minimum_score = this.minimum_score;
       data.start_date = this.start_date;
       data.end_date = this.end_date;
-      data.count_down = this.count_down.hours + ':' + this.count_down.minutes + ':' + this.count_down.seconds;
+      data.count_down = this.count_down;
+      if (this.count_down !== null){
+        data.count_down = this.count_down.hours + ':' + this.count_down.minutes + ':' + this.count_down.seconds;
+      }
       data.description = this.description;
       console.log(data);
 
@@ -92,21 +107,50 @@ export default {
         body: JSON.stringify(data)
       })
         .then(function (response) {
-          if (response.status !== 200) {
-            throw response.status;
-          } else {
-            router.push({name: 'Exams'}).catch(err => { console.log(err) });
+          return response.json()
+        })
+        .then((data) => {
+          this.errors = [];
+          if (data.status !== 200) {
+            this.errors = Object.keys(data.errors).map((key) => data.errors[key]);
+            this.isOpen = true;
+          }else {
+            router.push({name: 'Exams'}).catch(err => {
+              console.log(err)
+            });
           }
         })
-        .then(function () {
-          // this.$router.push('/questions')
+        .catch(e => {
+          console.log(e)
         })
-        .catch(console.error)
     },
   }
 }
 </script>
 
 <style scoped>
-
+.text-red {
+  color: red;
+}
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 999;
+  top: 30%;
+  left: 50% !important;
+  width: 500px;
+  margin-left: -150px;
+  background-color: white;
+  border-radius: 8px;
+  padding:15px;
+  box-shadow: 0 4px 16px #00000026;
+  height:auto;
+}
+.button-close {
+  height:30px;
+  border-bottom: 1px solid #00000026;
+}
+.model-content {
+  padding:10px;
+}
 </style>
