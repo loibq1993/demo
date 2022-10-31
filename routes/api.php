@@ -21,6 +21,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['cors']
 ], function() {
+    //api for client without login
+    Route::group([
+        'prefix' => 'test'
+    ], function (){
+        Route::get('/exam/{id}', [\App\Http\Controllers\Client\ExamController::class, 'getExam']);
+    });
+
+
+    //Make api with admin login here
     Route::get('question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
     Route::get('questions', [\App\Http\Controllers\Admin\QuestionsController::class, 'index']);
     Route::post('question/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
