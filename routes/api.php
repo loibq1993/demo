@@ -25,4 +25,14 @@ Route::group([
     Route::get('questions', [\App\Http\Controllers\Admin\QuestionsController::class, 'index']);
     Route::post('question/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
     Route::get('question/preview/{id}', [\App\Http\Controllers\Admin\QuestionsController::class, 'show']);
+
+    Route::group([
+        'prefix' =>'exams'
+    ],function (){
+        Route::get('/', [\App\Http\Controllers\Admin\ExamsController::class, 'index']);
+        Route::post('/store', [\App\Http\Controllers\Admin\ExamsController::class, 'store']);
+        Route::post('/update/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'update']);
+        Route::delete('/delete/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'destroy']);
+        Route::get('/preview/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'show']);
+    });
 });

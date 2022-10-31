@@ -27,6 +27,22 @@ export default [
   },
   {
     component: 'CNavTitle',
+    name: 'Exams',
+  },
+  {
+    component: 'CNavItem',
+    name: 'Exams',
+    to: '/exams',
+    icon: 'cil-notes',
+  },
+  {
+    component: 'CNavItem',
+    name: 'Create exam',
+    to: '/exams/create',
+    icon: 'cil-pencil',
+  },
+  {
+    component: 'CNavTitle',
     name: 'Theme',
   },
   {

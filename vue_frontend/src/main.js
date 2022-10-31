@@ -9,6 +9,9 @@ import { iconsSet as icons } from '@/assets/icons'
 import DocsCallout from '@/components/DocsCallout'
 import DocsExample from '@/components/DocsExample'
 import CKEditor from '@ckeditor/ckeditor5-vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 
 const app = createApp(App)
 app.use(store)
@@ -19,5 +22,6 @@ app.provide('icons', icons)
 app.component('CIcon', CIcon)
 app.component('DocsCallout', DocsCallout)
 app.component('DocsExample', DocsExample)
+app.component('Datepicker', Datepicker);
 
 app.mount('#app')
