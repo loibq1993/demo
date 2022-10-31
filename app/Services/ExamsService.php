@@ -44,4 +44,13 @@ class ExamsService
     {
         return Exams::find($id);
     }
+
+    public function getExamToClient($id)
+    {
+        return Exams::with(['exam_question' => [
+            'questions' => [
+                'fullAnswers' => 'detailFullAnswers'
+            ]
+        ]])->where('id', $id)->first();
+    }
 }
