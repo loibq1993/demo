@@ -25,7 +25,8 @@ Route::group([
     Route::group([
         'prefix' => 'test'
     ], function (){
-        Route::get('/exam/{id}', [\App\Http\Controllers\Client\ExamController::class, 'getExam']);
+        Route::get('/exams', [\App\Http\Controllers\Client\ExamController::class, 'getListExams']);
+        Route::get('/exams/{id}', [\App\Http\Controllers\Client\ExamController::class, 'getExam']);
     });
 
 

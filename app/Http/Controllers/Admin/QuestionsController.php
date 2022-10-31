@@ -87,7 +87,7 @@ class QuestionsController extends Controller
                 "*.answer_type.*" => "required",
                 "*.full_text_answer.*" => "required",
                 "*.limit_text.*" => "integer|nullable",
-                "exam_id" => "require|integer"
+                "exam_id" => "required|integer"
             ], $messages);
 
             if ($validator->fails()) {
