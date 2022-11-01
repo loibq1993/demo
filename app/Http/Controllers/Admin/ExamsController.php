@@ -59,8 +59,10 @@ class ExamsController extends Controller
                     'errors' => $validator->errors()->toArray(),
                 ],422);
             }
-            $this->examsService->store($examData);
-            return response()->json([], 200);
+            $exam = $this->examsService->store($examData);
+            return response()->json([
+                'exam' => $exam
+            ], 201);
         }catch (\Exception $exception){
             throw $exception;
         }
@@ -125,7 +127,7 @@ class ExamsController extends Controller
                 ],422);
             }
             $this->examsService->update($examData,$exam);
-            return response()->json([], 200);
+            return response()->json([], 201);
         }catch (\Exception $exception){
             throw $exception;
         }

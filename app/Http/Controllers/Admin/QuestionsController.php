@@ -29,19 +29,19 @@ class QuestionsController extends Controller
         $this->fullAnswerService = $fullAnswerService;
     }
 
-    public function index()
+    public function index($examId)
     {
-        $questions = $this->questionsService->getAll();
+        $questions = $this->questionsService->getAllWithExamId($examId);
 
         return response()->json([
             'questions' => $questions
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store($examId, Request $request)
     {
         $questionType = $request['questionType'][0];
-
+        $request['exam_id'] = $examId;
         $function = '';
         switch ($questionType) {
             case 1:
@@ -87,7 +87,7 @@ class QuestionsController extends Controller
                 "*.answer_type.*" => "required",
                 "*.full_text_answer.*" => "required",
                 "*.limit_text.*" => "integer|nullable",
-                "exam_id" => "require|integer"
+                "exam_id" => "required|integer"
             ], $messages);
 
             if ($validator->fails()) {
@@ -110,7 +110,9 @@ class QuestionsController extends Controller
             }
             DB::commit();
 
-            return response()->json([], 200);
+            return response()->json([
+                'examId' => $request['exam_id']
+            ], 201);
         } catch (\Exception $exception) {
             DB::rollBack();
             throw $exception;
@@ -126,7 +128,7 @@ class QuestionsController extends Controller
         ], 200);
     }
 
-    public function show($id)
+    public function show($examId, $id)
     {
         $question = $this->questionsService->getOne($id);
 ;

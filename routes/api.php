@@ -21,10 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['cors']
 ], function() {
-    Route::get('question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
-    Route::get('questions', [\App\Http\Controllers\Admin\QuestionsController::class, 'index']);
-    Route::post('question/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
-    Route::get('question/preview/{id}', [\App\Http\Controllers\Admin\QuestionsController::class, 'show']);
+    Route::get('/question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
 
     Route::group([
         'prefix' =>'exams'
@@ -34,6 +31,15 @@ Route::group([
         Route::post('/update/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'update']);
         Route::delete('/delete/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'destroy']);
         Route::get('/preview/{id}', [\App\Http\Controllers\Admin\ExamsController::class, 'show']);
+
+        //questions of Exam
+        Route::group([
+            'prefix' => '{examId}/questions'
+        ], function() {
+            Route::get('/', [\App\Http\Controllers\Admin\QuestionsController::class, 'index']);
+            Route::post('/store', [\App\Http\Controllers\Admin\QuestionsController::class, 'store']);
+            Route::get('/preview/{id}', [\App\Http\Controllers\Admin\QuestionsController::class, 'show']);
+        });
     });
 });
 Route::get('exams', [\App\Http\Controllers\Admin\ExamsController::class, 'index']);
