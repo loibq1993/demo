@@ -24,7 +24,7 @@
             </thead>
             <tbody>
             <tr v-for="(exam, index) in exams" :key="index">
-              <td>{{exam.id}}</td>
+              <td>{{index++}}</td>
               <td>{{exam.title}}</td>
               <td>{{format_date(exam.start_date)}}</td>
               <td>{{format_date(exam.end_date)}}</td>
@@ -60,10 +60,10 @@ export default {
   data() {
     return {
       href: {
-        create: '/#/exams/create',
-        edit: '/#/exams/edit',
-        delete: '/#/exams/delete',
-        preview: '/#/exams/preview'
+        create: '/exams/create',
+        edit: '/exams/edit',
+        delete: '/exams/delete',
+        preview: '/exams/preview'
       },
       exams: [],
       types: []

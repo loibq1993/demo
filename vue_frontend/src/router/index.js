@@ -1,5 +1,5 @@
 import { h, resolveComponent } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import DefaultLayout from '@/layouts/DefaultLayout'
 
@@ -19,18 +19,18 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
       },
+      // {
+      //   path: '/questions',
+      //   name: 'Questions',
+      //   redirect: '/questions',
+      // },
       {
-        path: '/questions',
-        name: 'Questions',
-        redirect: '/questions',
-      },
-      {
-        path: '/questions',
+        path: '/exams/:id/questions',
         name: 'Questions',
         component: () => import('@/views/questions/List'),
       },
       {
-        path: '/questions/create',
+        path: '/exams/:id/questions/create',
         name: 'Create question',
         component: () => import('@/views/questions/Create'),
       },
@@ -337,7 +337,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.BASE_URL),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
   scrollBehavior() {
     // always scroll to top

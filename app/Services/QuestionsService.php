@@ -14,9 +14,15 @@ class QuestionsService
         $this->fullAnswerService = $fullAnswerService;
     }
 
-    public function getAll()
+    public function getAllWithExamId($examId)
     {
-        return  Questions::all();
+        return ExamQuestions::join('questions', 'questions.id', '=', 'exam_questions.question_id')
+            ->where('exam_questions.exam_id', $examId)->with([
+                'questions' => ['fullAnswers' => [
+                    'detailFullAnswers',
+                    'correctAnswers' => ['correctAnswerDetail']
+                ]]
+            ])->get();
     }
 
     public function store($data)

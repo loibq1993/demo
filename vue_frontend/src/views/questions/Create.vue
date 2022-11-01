@@ -119,7 +119,7 @@ export default {
       data.question = this.question;
       data.required = this.required;
 
-      fetch('http://localhost/api' + '/question/store', {
+      fetch('http://localhost/api' + '/exams/'+ this.$route.params.id +'/questions/store', {
         method: 'POST',
         headers: APISettings.headers,
         body: JSON.stringify(data)
@@ -128,12 +128,17 @@ export default {
           return response.json()
         })
         .then((data) => {
-          this.errors = []
-          if (data.status !== 200) {
+          if (data.errors) {
+            this.errors = [];
             this.errors = Object.keys(data.errors).map((key) => data.errors[key]);
             this.isOpen = true;
           } else {
-            router.push({name: 'Questions'}).catch(err => {
+            router.push({
+              name: 'Questions',
+              params: {
+                id: data.examId
+              }
+            }).catch(err => {
               console.log(err)
             });
           }
