@@ -11,8 +11,8 @@
             <thead class="thead">
             <tr>
               <th scope="col" style="width: 5%">#</th>
-              <th scope="col" style="width: 25%">Type</th>
-              <th scope="col" style="width: 40%">Title</th>
+              <th scope="col" style="width: 30%">Title</th>
+              <th scope="col" style="width: 35%">Type</th>
               <th scope="col" style="width: 15%">Created date</th>
               <th scope="col" style="width: 15%">
                 <a v-bind:href="href.create" class="btn btn-primary">
@@ -23,9 +23,9 @@
             </thead>
             <tbody>
               <tr v-for="(question, index) in questions" :key="index">
-                <td>{{question.id}}</td>
-                <td>{{displayType(question.type)}}</td>
+                <td>{{index++}}</td>
                 <td>{{question.title}}</td>
+                <td>{{displayType(question.type)}}</td>
                 <td>{{format_date(question.created_at)}}</td>
                 <td>
                   <a v-bind:href="href.edit" class="btn btn-warning" style="margin-right: 5px;">
@@ -58,10 +58,10 @@ export default {
   data() {
     return {
       href: {
-        create: '/#/questions/create',
-        edit: '/#/questions/edit',
-        delete: '/#/questions/delete',
-        preview: '/#/question/preview'
+        create: '/exams/'+ this.$route.params.id +'/questions/create',
+        edit: '/exams/'+ this.$route.params.id +'/questions/edit',
+        delete: '/exams/'+ this.$route.params.id +'/questions/delete',
+        preview: '/exams/'+ this.$route.params.id +'/question/preview'
       },
       questions: [],
       types: []
@@ -73,7 +73,7 @@ export default {
   },
   methods :  {
     fetchQuestions() {
-      let fetchData = fetch('http://localhost/api' + '/questions', {
+      let fetchData = fetch('http://localhost/api/' + 'exams/' + this.$route.params.id + '/questions', {
         method: 'GET',
         headers: APISettings.headers
       })
