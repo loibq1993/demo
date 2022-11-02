@@ -73,6 +73,7 @@ export default {
       })
         .then(function (response) {
           if (response.status !== 200) {
+            console.log(response.json())
             throw response.status;
           } else {
             return response.json();
