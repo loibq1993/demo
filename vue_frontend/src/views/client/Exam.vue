@@ -35,7 +35,8 @@
           </div>
         </CRow>
         <div class="submit mt-3 row">
-            <button type="submit" id="form-submit" class="btn btn-success m-auto text-white w-auto" @click="save">Save</button>
+          <button type="submit" id="form-submit" class="btn btn-success m-auto text-white w-auto" @click="save">Save
+          </button>
         </div>
       </CForm>
     </CContainer>
@@ -73,7 +74,6 @@ export default {
       })
         .then(function (response) {
           if (response.status !== 200) {
-            console.log(response.json())
             throw response.status;
           } else {
             return response.json();
@@ -89,7 +89,7 @@ export default {
         this.exam_questions = data.exam.exam_questions
         let time = this.exam.count_down;
         let arr = time.split(':');
-        this.timer =  (arr[0]*3600+arr[1]*60+(+arr[2])) * 1000 ;
+        this.timer = (arr[0] * 3600 + arr[1] * 60 + (+arr[2])) * 1000;
         this.countDown();
       })
     },
@@ -106,7 +106,6 @@ export default {
         let now = new Date().getTime();
         // Find the distance between now and the count down date
         var distance = new Date(countDownDate - now).getTime();
-        console.log(distance);
 
         // Time calculations for days, hours, minutes and seconds
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -143,15 +142,17 @@ export default {
       }
       data.exam_id = this.exam.id
       data.time = document.getElementById('countdown').innerHTML
-      console.log(data)
 
-      fetch('http://localhost/api' + '/exams/store', {
+      fetch('http://localhost/api' + '/test/exams/' + this.$route.params.id, {
         method: 'POST',
         headers: APISettings.headers,
         body: JSON.stringify(data)
       })
         .then(function (response) {
           return response.json();
+        })
+        .then((data) => {
+          console.log(data);
         })
     }
   }
@@ -164,6 +165,7 @@ export default {
   box-shadow: 2px 2px #888888;
   background-color: #fff;
 }
+
 .submit .btn-success {
   right: 0;
 }

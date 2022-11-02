@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreQuestionRequest;
 use App\Services\QuestionsService;
 use Illuminate\Http\Request;
 use App\Services\FullAnswerService;
 use App\Services\QuestionTypesService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Termwind\Question;
 
 class QuestionsController extends Controller
 {

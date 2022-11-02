@@ -28,6 +28,9 @@ Route::group([
     ], function (){
         Route::get('/exams', [\App\Http\Controllers\Client\ExamController::class, 'getListExams']);
         Route::get('/exams/{id}', [\App\Http\Controllers\Client\ExamController::class, 'getExam']);
+
+        //save user exam
+        Route::post('/exams/{id}', [\App\Http\Controllers\Client\ExamController::class, 'saveUserExam']);
     });
 
     //should change to admin here

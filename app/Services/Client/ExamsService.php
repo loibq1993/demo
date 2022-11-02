@@ -22,4 +22,9 @@ class ExamsService
             ]
         ]])->where('id', $id)->first();
     }
+
+    public function saveUserExam($request)
+    {
+        dd($request);
+    }
 }
