@@ -12,14 +12,19 @@
 
 export default {
   name: 'FillTheBlank',
-  props: ['question', 'answers', 'index'],
+  props: ['question', 'index'],
+  data() {
+    return {
+      answers: []
+    }
+  },
   computed: {
     questionHTML() {
       let html = this.question.question
-      let answers = this.answers
+      let answers = this.question.full_answers
       for (let i = 0; i < answers.length; i++) {
         let limit = answers[i].correct_answers[0].correct_answer_detail.correct_answer.length
-        html = html.replace('___', '<input type="text" name="value[]" class="replaced-input" style="width: '+limit+'0px"/>');
+        html = html.replace('___', '<input type="text" name="question_'+this.question.id+'[]" class="replaced-input" style="width: '+limit+'0px"/>');
       }
       return html
     }

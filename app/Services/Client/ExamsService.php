@@ -15,7 +15,10 @@ class ExamsService
     {
         return Exams::with(['examQuestions' => [
             'questions' => [
-                'fullAnswers' => ['detailFullAnswers']
+                'fullAnswers' => [
+                    'detailFullAnswers',
+                    'correctAnswers' => ['correctAnswerDetail']
+                ]
             ]
         ]])->where('id', $id)->first();
     }

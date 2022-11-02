@@ -36,7 +36,7 @@
                 <a v-bind:href="href.delete" class="btn btn-danger" style="margin-right: 5px;">
                   <i class="fa fa-trash"></i>
                 </a>
-                <a v-bind:href="href.preview+'/'+exam.id" class="btn btn-danger">
+                <a v-bind:href="href.preview+'/'+exam.id + '/questions'" class="btn btn-danger">
                   <i class="fa fa-eye"></i>
                 </a>
               </td>
@@ -60,10 +60,10 @@ export default {
   data() {
     return {
       href: {
-        create: '/exams/create',
-        edit: '/exams/edit',
-        delete: '/exams/delete',
-        preview: '/exams/preview'
+        create: '/admin/exams/create',
+        edit: '/admin/exams/edit',
+        delete: '/admin/exams/delete',
+        preview: '/admin/exams'
       },
       exams: [],
       types: []

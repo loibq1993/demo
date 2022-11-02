@@ -26,17 +26,17 @@ const routes = [
       //   redirect: '/questions',
       // },
       {
-        path: '/exams/:id/questions',
+        path: '/admin/exams/:id/questions',
         name: 'Questions',
         redirect: '/admin/questions',
       },
       {
-        path: '/admin/questions',
+        path: '/admin/exams/:id/questions',
         name: 'Questions',
         component: () => import('@/views/admin/questions/List'),
       },
       {
-        path: '/exams/:id/questions/create',
+        path: '/admin/exams/:id/questions/create',
         name: 'Create question',
         component: () => import('@/views/admin/questions/Create'),
       },
@@ -52,19 +52,14 @@ const routes = [
         ]
       },
       {
-        path: '/exams',
-        name: 'Exams',
-        redirect: '/exams',
+        path: '/admin/exams',
+        name: 'AdminExam',
+        component: () => import('@/views/admin/exams/List'),
       },
       {
-        path: '/exams',
-        name: 'Exams',
-        component: () => import('@/views/exams/List'),
-      },
-      {
-        path: '/exams/create',
-        name: 'Create exam',
-        component: () => import('@/views/exams/Create'),
+        path: '/admin/exams/create',
+        name: 'AdminCreateExam',
+        component: () => import('@/views/admin/exams/Create'),
       },
       {
         path: '/admin/theme',
@@ -352,9 +347,14 @@ const routes = [
         component: () => import('@/views/pages/Login'),
       },
       {
-        path: '/test',
-        name: 'Test',
-        component: () => import('@/views/client/Test'),
+        path: '/exams',
+        name: 'Exams',
+        component: () => import('@/views/client/Exams'),
+      },
+      {
+        path: '/exams/:id',
+        name: 'Exam',
+        component: () => import('@/views/client/Exam'),
       },
     ]
   }
