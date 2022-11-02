@@ -356,6 +356,11 @@ const routes = [
         name: 'Exam',
         component: () => import('@/views/client/Exam'),
       },
+      {
+        path: '/exams/result/:id/',
+        name: 'ExamSuccess',
+        component: () => import('@/views/client/ExamSuccess'),
+      },
     ]
   }
 ]

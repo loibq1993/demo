@@ -35,7 +35,8 @@
           </div>
         </CRow>
         <div class="submit mt-3 row">
-            <button type="submit" id="form-submit" class="btn btn-success m-auto text-white w-auto" @click="save">Save</button>
+          <button type="submit" id="form-submit" class="btn btn-success m-auto text-white w-auto" @click="save">Save
+          </button>
         </div>
       </CForm>
     </CContainer>
@@ -73,7 +74,6 @@ export default {
       })
         .then(function (response) {
           if (response.status !== 200) {
-            console.log(response.json())
             throw response.status;
           } else {
             return response.json();
@@ -89,7 +89,7 @@ export default {
         this.exam_questions = data.exam.exam_questions
         let time = this.exam.count_down;
         let arr = time.split(':');
-        this.timer =  (arr[0]*3600+arr[1]*60+(+arr[2])) * 1000 ;
+        this.timer = (arr[0] * 3600 + arr[1] * 60 + (+arr[2])) * 1000;
         this.countDown();
       })
     },
@@ -106,15 +106,14 @@ export default {
         let now = new Date().getTime();
         // Find the distance between now and the count down date
         var distance = new Date(countDownDate - now).getTime();
-        console.log(distance);
 
         // Time calculations for days, hours, minutes and seconds
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
         // Output the result in an element with id="demo"
-        document.getElementById("countdown").innerHTML = hours + "h "
-          + minutes + "m " + seconds + "s ";
+        document.getElementById("countdown").innerHTML = hours + ":"
+          + minutes + ":" + seconds;
 
         // If the count down is over, write some text
         if (distance < 0) {
@@ -126,26 +125,22 @@ export default {
     async save(e) {
       e.preventDefault();
 
+      if (this.handleCheckRequired()) {
+        return false;
+      }
+
       let myForm = document.getElementById('formExam');
       let formData = new FormData(myForm);
 
       //the way to handle data
-      var sameKey = [];
       let data = {};
       for (let [key, val] of formData.entries()) {
-        if (key !== sameKey[key]) {
-          sameKey[key] = key;
-          data[key] = [];
-          data[key].push(val)
-        } else {
-          data[key].push(val)
-        }
+          data[key] = val;
       }
       data.exam_id = this.exam.id
-      data.time = document.getElementById('countdown').innerHTML
-      console.log(data)
-
-      fetch('http://localhost/api' + '/exams/store', {
+      data.count_down = document.getElementById('countdown').innerHTML
+      this.timer = 0;
+      fetch('http://localhost/api' + '/test/exams/' + this.$route.params.id, {
         method: 'POST',
         headers: APISettings.headers,
         body: JSON.stringify(data)
@@ -153,6 +148,41 @@ export default {
         .then(function (response) {
           return response.json();
         })
+        .then((data) => {
+          if (!data.errors) {
+            router.push({
+              name: 'ExamSuccess',
+              params: {
+                id: data.data.id
+              }
+            }).catch(err => {
+              console.log(err)
+            });
+          }
+        })
+    },
+    handleCheckRequired() {
+      let error = false;
+
+      //remove highlight required input questions
+      let removedHighlight = document.getElementsByClassName('replaced-input')
+      Array.prototype.forEach.call(removedHighlight, child => {
+        child.style.border = "none"
+        child.style.borderBottom = "2px solid black";
+      });
+
+      //highlight required input questions
+      let required = this.$el.querySelectorAll('.required')
+      for (const requiredElement of required) {
+        let input = requiredElement.getElementsByClassName('replaced-input')
+        Array.prototype.forEach.call(input, child => {
+          if (child.value==="") {
+            error = true
+            return child.style.border = "1px solid red";
+          }
+        });
+      }
+      return error;
     }
   }
 }
@@ -164,6 +194,7 @@ export default {
   box-shadow: 2px 2px #888888;
   background-color: #fff;
 }
+
 .submit .btn-success {
   right: 0;
 }
