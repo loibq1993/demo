@@ -18,7 +18,7 @@ class CorrectAnswerDetail extends Model
         'answer_type'
     ];
 
-    public function correctAnswer()
+    public function correctAnswers()
     {
         return $this->belongsTo(CorrectAnswers::class, 'id', 'correct_answer_id');
     }
