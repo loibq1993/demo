@@ -29,7 +29,7 @@ class MyUploadAdapter {
     // integration to choose the right communication channel. This example uses
     // a POST request with JSON as a data structure but your configuration
     // could be different.
-    xhr.open( 'POST', '/upload', true );
+    xhr.open( 'POST', process.env.VUE_APP_BASE_URL+'upload', true );
     xhr.responseType = 'json';
   }
 
@@ -81,8 +81,8 @@ class MyUploadAdapter {
     // Prepare the form data.
     const data = new FormData();
 
-    data.append( 'upload', file );
-
+    data.append( 'file', file );
+    data.append( 'upload', 'upload' );
     // Important note: This is the right place to implement security mechanisms
     // like authentication and CSRF protection. For instance, you can use
     // XMLHttpRequest.setRequestHeader() to set the request headers containing
