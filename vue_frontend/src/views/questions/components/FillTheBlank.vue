@@ -39,13 +39,13 @@ export default {
       editorConfig: {
         toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'numberedList', 'bulletedList', '|', 'undo', 'redo', 'uploadImage', '|', 'insertTable', 'ckfinder', 'outdent', 'indent', '|',],
         extraPlugins: [UploadAdapter],
-        ckfinder: {
-          // Upload the images to the server using the CKFinder QuickUpload command.
-          uploadUrl: window.location + '/upload',
-          options: {
-            resourceType: 'Files',
-          }
-        }
+        // ckfinder: {
+        //   // Upload the images to the server using the CKFinder QuickUpload command.
+        //   uploadUrl: process.env.VUE_APP_BASE_URL + 'upload',
+        //   options: {
+        //     resourceType: 'Files',
+        //   }
+        // }
       },
       editorData: '',
       title: 'answer[value]',

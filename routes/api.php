@@ -21,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['cors']
 ], function() {
+    Route::post('/upload', [\App\Http\Controllers\ImageController::class, 'store']);
+
     Route::get('/question/types', [\App\Http\Controllers\Admin\QuestionsController::class, 'getType']);
 
     Route::group([
@@ -41,6 +43,7 @@ Route::group([
             Route::get('/preview/{id}', [\App\Http\Controllers\Admin\QuestionsController::class, 'show']);
         });
     });
+
 });
 Route::get('exams', [\App\Http\Controllers\Admin\ExamsController::class, 'index']);
 Route::post('exam/store', [\App\Http\Controllers\Admin\ExamsController::class, 'store']);
