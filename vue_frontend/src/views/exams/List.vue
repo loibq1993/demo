@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     fetchExams() {
-      let fetchData = fetch('http://localhost/api' + '/exams', {
+      let fetchData = fetch('http://54.179.55.45/api' + '/exams', {
         method: 'GET',
         headers: APISettings.headers
       })

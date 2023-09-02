@@ -101,7 +101,7 @@ export default {
       }
       data.description = this.description;
 
-      fetch('http://localhost/api' + '/exams/store', {
+      fetch('http://54.179.55.45/api' + '/exams/store', {
         method: 'POST',
         headers: APISettings.headers,
         body: JSON.stringify(data)
