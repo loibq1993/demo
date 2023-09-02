@@ -1,6 +1,6 @@
 # Folders to ignore
-dist/
-node_modules/
+#dist/
+#node_modules/
 tests/e2e/reports/
 
 # local env files
@@ -8,9 +8,9 @@ tests/e2e/reports/
 .env.*.local
 
 # dependencies
-/node_modules
+#/node_modules
 package-lock.json
-yarn.lock
+#yarn.lock
 
 # OS or Editor folders
 ._*

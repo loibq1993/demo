@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     fetchData() {
-      let fetchData = fetch('http://localhost/api' + '/question/preview/'+this.id, {
+      let fetchData = fetch('http://localhost:8000/api' + '/question/preview/'+this.id, {
         method: 'GET',
         headers: APISettings.headers
       })

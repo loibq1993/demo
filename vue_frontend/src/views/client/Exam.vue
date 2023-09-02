@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     fetchData() {
-      let fetchData = fetch('http://localhost/api' + '/test/exams/' + this.$route.params.id, {
+      let fetchData = fetch('http://localhost:8000/api' + '/test/exams/' + this.$route.params.id, {
         method: 'GET',
         headers: APISettings.headers
       })
@@ -143,7 +143,7 @@ export default {
       data.exam_id = this.exam.id
       data.time = document.getElementById('countdown').innerHTML
 
-      fetch('http://localhost/api' + '/test/exams/' + this.$route.params.id, {
+      fetch('http://localhost:8000/api' + '/test/exams/' + this.$route.params.id, {
         method: 'POST',
         headers: APISettings.headers,
         body: JSON.stringify(data)
