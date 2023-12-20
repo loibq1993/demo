@@ -21,7 +21,7 @@
   </CRow>
 </template>
 <script>
-import FillTheBlank from "@/views/questions/preview-components/FillTheBlank";
+import FillTheBlank from "@/views/admin/questions/preview-components/FillTheBlank";
 import {APISettings} from '@/config/config';
 
 

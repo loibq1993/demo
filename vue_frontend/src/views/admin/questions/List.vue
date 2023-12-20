@@ -58,10 +58,10 @@ export default {
   data() {
     return {
       href: {
-        create: '/exams/'+ this.$route.params.id +'/questions/create',
-        edit: '/exams/'+ this.$route.params.id +'/questions/edit',
-        delete: '/exams/'+ this.$route.params.id +'/questions/delete',
-        preview: '/exams/'+ this.$route.params.id +'/question/preview'
+        create: '/admin/exams/'+ this.$route.params.id +'/questions/create',
+        edit: '/admin/exams/'+ this.$route.params.id +'/questions/edit',
+        delete: '/admin/exams/'+ this.$route.params.id +'/questions/delete',
+        preview: '/admin/exams/'+ this.$route.params.id +'/question/preview'
       },
       questions: [],
       types: []

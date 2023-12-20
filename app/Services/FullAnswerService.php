@@ -7,6 +7,7 @@ use App\Models\CorrectAnswers;
 use App\Models\DetailFullAnswers;
 use App\Models\FullAnswers;
 use App\Models\Questions;
+use Illuminate\Support\Facades\Log;
 
 class FullAnswerService
 {
@@ -25,6 +26,7 @@ class FullAnswerService
             'full_answer_id' => $fullAnswer->id,
         ]);
         $saving = [];
+
         for ($i = 0; $i < count($data['answer_type']); $i++) {
             $saving[$i]['answer_type'] = $data['answer_type'][$i];
             $saving[$i]['limit_text'] = (int)$data['limit_text'][$i];
@@ -34,7 +36,8 @@ class FullAnswerService
             DetailFullAnswers::create([
                 'full_answer_id' => $fullAnswer->id,
                 'answer_type' => $value['answer_type'],
-                'limit_text' => $value['limit_text']
+                'limit_text' => $value['limit_text'],
+                'full_text_answer' => $value['full_text_answer']
             ]);
 
             CorrectAnswerDetail::create([

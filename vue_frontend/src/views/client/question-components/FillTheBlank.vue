@@ -1,7 +1,7 @@
 <template>
-  <div id="fill_the_blank">
+  <div class="fill_the_blank mb-5">
     <div class="question">
-      <div class="title form-label" style="font-weight: bold">{{ question.title }}</div>
+      <div class="title form-label" style="font-weight: bold">Question {{index}}: {{ question.title }}</div>
       <div class="content">
         <div v-html="questionHTML"></div>
       </div>
@@ -12,15 +12,19 @@
 
 export default {
   name: 'FillTheBlank',
-  props: ['question', 'answers'],
+  props: ['question', 'index'],
+  data() {
+    return {
+      answers: []
+    }
+  },
   computed: {
     questionHTML() {
       let html = this.question.question
-      let answers = this.answers
+      let answers = this.question.full_answers
       for (let i = 0; i < answers.length; i++) {
         let limit = answers[i].correct_answers[0].correct_answer_detail.correct_answer.length
-        console.log(limit)
-        html = html.replace('___', '<input type="text" name="value[]" class="replaced-input" style="width: '+limit+'0px"/>');
+        html = html.replace('___', '<input type="text" name="answers_'+answers[i].id+'[]" class="replaced-input" style="width: '+limit+'0px"/>');
       }
       return html
     }

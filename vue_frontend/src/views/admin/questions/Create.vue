@@ -64,12 +64,12 @@
   </Teleport>
 </template>
 <script>
-import Select from '../components/Select'
+import Select from '../../components/Select'
 import InputWithLabel from "@/views/components/InputWithLabel";
-import FillTheBlank from "@/views/questions/components/FillTheBlank";
-import MultipleChoice from "@/views/questions/components/MultipleChoice";
-import OneChoice from "@/views/questions/components/OneChoice";
-import TrueFalse from "@/views/questions/components/TrueFalse";
+import FillTheBlank from "@/views/admin/questions/components/FillTheBlank";
+import MultipleChoice from "@/views/admin/questions/components/MultipleChoice";
+import OneChoice from "@/views/admin/questions/components/OneChoice";
+import TrueFalse from "@/views/admin/questions/components/TrueFalse";
 import {APISettings} from '@/config/config';
 import router from '@/router';
 
