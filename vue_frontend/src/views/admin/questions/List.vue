@@ -73,7 +73,7 @@ export default {
   },
   methods :  {
     fetchQuestions() {
-      let fetchData = fetch('http://localhost/api/' + 'exams/' + this.$route.params.id + '/questions', {
+      let fetchData = fetch('http://54.179.55.45/api/' + 'exams/' + this.$route.params.id + '/questions', {
         method: 'GET',
         headers: APISettings.headers
       })
@@ -89,7 +89,7 @@ export default {
       })
     },
     fetchType() {
-      let fetchData = fetch('http://localhost/api' + '/question/types', {
+      let fetchData = fetch('http://54.179.55.45/api' + '/question/types', {
         method: 'GET',
         headers: APISettings.headers
       })

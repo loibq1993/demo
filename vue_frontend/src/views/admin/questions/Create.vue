@@ -119,7 +119,7 @@ export default {
       data.question = this.question;
       data.required = this.required;
 
-      fetch('http://localhost/api' + '/exams/'+ this.$route.params.id +'/questions/store', {
+      fetch('http://54.179.55.45/api' + '/exams/'+ this.$route.params.id +'/questions/store', {
         method: 'POST',
         headers: APISettings.headers,
         body: JSON.stringify(data)
@@ -148,7 +148,7 @@ export default {
         })
     },
     fetchData() {
-      let fetchData = fetch('http://localhost/api' + '/question/types', {
+      let fetchData = fetch('http://54.179.55.45/api' + '/question/types', {
         method: 'GET',
         headers: APISettings.headers
       })
